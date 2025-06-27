@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Restaurants - Food Delivery App{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h1>Restaurants</h1>
+    </div>
+    <div class="col-md-6">
+        <form action="{% url 'restaurant_list' %}" method="get" class="d-flex">
+            <input type="text" name="q" class="form-control me-2" placeholder="Search restaurants or cuisines..." value="{{ query }}">
+            <button type="submit" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+        </form>
+    </div>
+</div>
+
+{% if query %}
+<div class="alert alert-info">
+    Showing results for: <strong>{{ query }}</strong>
+    <a href="{% url 'restaurant_list' %}" class="float-end">Clear search</a>
+</div>
+{% endif %}
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% if restaurants %}
+        {% for restaurant in restaurants %}
+        <div class="col">
+            <div class="card h-100 restaurant-card">
+                <div class="restaurant-banner" style="height: 150px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                    {% if restaurant.banner_image %}
+                    <!-- Banner image would be displayed here if using real images -->
+                    <span class="text-muted">Banner Image</span>
+                    {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee text-secondary"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="card-title">{{ restaurant.name }}</h5>
+                            <p class="card-text text-muted">{{ restaurant.cuisine_type }}</p>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">{{ restaurant.rating }}</span>
+                    </div>
+                    
+                    <div class="restaurant-info mt-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin me-2 text-muted"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <small class="text-muted">{{ restaurant.address }}, {{ restaurant.city }}</small>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock me-2 text-muted"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <small class="text-muted">{{ restaurant.estimated_delivery_time }}</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck me-2 text-muted"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                            <small class="text-muted">
+                                {% if restaurant.delivery_fee == 0 %}
+                                Free Delivery
+                                {% else %}
+                                ${{ restaurant.delivery_fee }} Delivery
+                                {% endif %}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'restaurant_detail' restaurant.id %}" class="btn btn-primary w-100">View Menu</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-warning">
+                <p class="mb-0">No restaurants found. Please try a different search term.</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

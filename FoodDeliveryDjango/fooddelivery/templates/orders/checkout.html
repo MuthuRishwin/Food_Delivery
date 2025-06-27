@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout - Food Delivery App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="card-title mb-0">Checkout</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <h4 class="mb-3">Delivery Information</h4>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.delivery_address.id_for_label }}" class="form-label">{{ form.delivery_address.label }}</label>
+                        {{ form.delivery_address }}
+                        {% if form.delivery_address.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.delivery_address.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.contact_phone.id_for_label }}" class="form-label">{{ form.contact_phone.label }}</label>
+                        {{ form.contact_phone }}
+                        {% if form.contact_phone.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.contact_phone.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.delivery_instructions.id_for_label }}" class="form-label">{{ form.delivery_instructions.label }}</label>
+                        {{ form.delivery_instructions }}
+                        {% if form.delivery_instructions.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.delivery_instructions.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <h4 class="mb-3 mt-4">Payment Method</h4>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.payment_method.id_for_label }}" class="form-label">{{ form.payment_method.label }}</label>
+                        {{ form.payment_method }}
+                        {% if form.payment_method.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.payment_method.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Credit Card Details (conditionally shown with JavaScript) -->
+                    <div id="credit-card-details" class="card-payment-details d-none mb-4">
+                        <div class="alert alert-info">
+                            <small>This is a demonstration app. No real payment will be processed.</small>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cc-name" class="form-label">Name on card</label>
+                                <input type="text" class="form-control" id="cc-name" placeholder="Full name as displayed on card">
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="cc-number" class="form-label">Credit card number</label>
+                                <input type="text" class="form-control" id="cc-number" placeholder="XXXX XXXX XXXX XXXX">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="cc-expiration" class="form-label">Expiration</label>
+                                <input type="text" class="form-control" id="cc-expiration" placeholder="MM/YY">
+                            </div>
+                            
+                            <div class="col-md-4 mb-3">
+                                <label for="cc-cvv" class="form-label">CVV</label>
+                                <input type="text" class="form-control" id="cc-cvv" placeholder="XXX">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg mt-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle me-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            Place Order
+                        </button>
+                        <a href="{% url 'cart' %}" class="btn btn-outline-secondary">Return to Cart</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Order Summary</h4>
+            </div>
+            <div class="card-body">
+                <div class="restaurant-info mb-3">
+                    <h5>{{ restaurant.name }}</h5>
+                    <div class="d-flex align-items-center text-muted">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin me-2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <small>{{ restaurant.address }}</small>
+                    </div>
+                </div>
+                
+                <div class="order-items mb-3">
+                    <h6>Items:</h6>
+                    <ul class="list-group list-group-flush">
+                        {% for item in cart_items %}
+                        <li class="list-group-item d-flex justify-content-between lh-sm px-0">
+                            <div>
+                                <h6 class="my-0">{{ item.menu_item.name }} x {{ item.quantity }}</h6>
+                                <small class="text-muted">{{ item.menu_item.description|truncatechars:50 }}</small>
+                            </div>
+                            <span class="text-muted">${{ item.item_total }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <hr>
+                
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Subtotal:</span>
+                    <span>${{ total }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Delivery Fee:</span>
+                    <span>
+                        {% if restaurant.delivery_fee == 0 %}
+                        Free
+                        {% else %}
+                        ${{ restaurant.delivery_fee }}
+                        {% endif %}
+                    </span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between mb-2">
+                    <span><strong>Total:</strong></span>
+                    <span><strong>${{ total|add:restaurant.delivery_fee }}</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Show/hide credit card form based on payment method selection
+    document.addEventListener('DOMContentLoaded', function() {
+        const paymentSelect = document.getElementById('id_payment_method');
+        const creditCardDetails = document.getElementById('credit-card-details');
+        
+        function toggleCreditCardForm() {
+            if (paymentSelect.value === 'credit_card' || paymentSelect.value === 'debit_card') {
+                creditCardDetails.classList.remove('d-none');
+            } else {
+                creditCardDetails.classList.add('d-none');
+            }
+        }
+        
+        // Initial check
+        toggleCreditCardForm();
+        
+        // Check on change
+        paymentSelect.addEventListener('change', toggleCreditCardForm);
+    });
+</script>
+{% endblock %}

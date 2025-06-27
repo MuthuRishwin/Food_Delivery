@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Food Delivery App{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold text-primary">Your favorite food, delivered fast</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Order from the best local restaurants with easy, on-demand delivery.</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="{% url 'restaurant_list' %}" class="btn btn-primary btn-lg px-4 gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search me-2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    Browse Restaurants
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <section class="my-5">
+        <h2 class="text-center mb-4">How It Works</h2>
+        <div class="row g-4 py-4">
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 p-3 rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
+                        <h3 class="fs-4">Find Restaurants</h3>
+                        <p>Browse through our selection of restaurants and menus.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 p-3 rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        </div>
+                        <h3 class="fs-4">Place Your Order</h3>
+                        <p>Select your favorite dishes and add them to your cart.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 p-3 rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                        </div>
+                        <h3 class="fs-4">Enjoy Delivery</h3>
+                        <p>We'll deliver your food right to your doorstep, fast and fresh.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Cuisines Section -->
+    <section class="my-5">
+        <h2 class="text-center mb-4">Popular Cuisines</h2>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3">
+            <div class="col">
+                <div class="card h-100 text-center cuisine-card">
+                    <div class="card-body">
+                        <h3 class="fs-5">Italian</h3>
+                        <a href="{% url 'restaurant_list' %}?q=Italian" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 text-center cuisine-card">
+                    <div class="card-body">
+                        <h3 class="fs-5">Chinese</h3>
+                        <a href="{% url 'restaurant_list' %}?q=Chinese" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 text-center cuisine-card">
+                    <div class="card-body">
+                        <h3 class="fs-5">Mexican</h3>
+                        <a href="{% url 'restaurant_list' %}?q=Mexican" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 text-center cuisine-card">
+                    <div class="card-body">
+                        <h3 class="fs-5">Indian</h3>
+                        <a href="{% url 'restaurant_list' %}?q=Indian" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 text-center cuisine-card">
+                    <div class="card-body">
+                        <h3 class="fs-5">Japanese</h3>
+                        <a href="{% url 'restaurant_list' %}?q=Japanese" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 text-center cuisine-card">
+                    <div class="card-body">
+                        <h3 class="fs-5">Thai</h3>
+                        <a href="{% url 'restaurant_list' %}?q=Thai" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Features Section -->
+    <section class="my-5 py-5 bg-light rounded">
+        <div class="container px-4">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <h2 class="fw-bold lh-1 mb-3">Why choose our Food Delivery App?</h2>
+                    <ul class="list-unstyled mt-4">
+                        <li class="d-flex align-items-center mb-3">
+                            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-5 me-3 p-2 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </div>
+                            <span>Fast delivery, right to your doorstep</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-5 me-3 p-2 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </div>
+                            <span>Quality restaurants and top-rated food</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-5 me-3 p-2 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                            </div>
+                            <span>Secure and easy payment options</span>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-5 me-3 p-2 rounded">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            </div>
+                            <span>Real-time order tracking</span>
+                        </li>
+                    </ul>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-start mt-4">
+                        <a href="{% url 'restaurant_list' %}" class="btn btn-primary btn-lg px-4 me-sm-3">Order Now</a>
+                        {% if not user.is_authenticated %}
+                        <a href="{% url 'register' %}" class="btn btn-outline-secondary btn-lg px-4">Sign Up</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-package text-primary"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

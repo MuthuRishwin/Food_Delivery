@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile - Food Delivery App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Account Navigation</h5>
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="{% url 'profile' %}" class="list-group-item list-group-item-action active">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user me-2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    My Profile
+                </a>
+                <a href="{% url 'order_history' %}" class="list-group-item list-group-item-action">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag me-2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    Order History
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-9">
+        <!-- Profile Information -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Profile Information</h5>
+                <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#editProfileForm">
+                    Edit Profile
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Username:</strong> {{ user.username }}</p>
+                        <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Phone:</strong> {{ user.profile.phone_number|default:"Not provided" }}</p>
+                    </div>
+                </div>
+                
+                <!-- Edit Profile Form (Collapsed by default) -->
+                <div class="collapse mt-4" id="editProfileForm">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="id_first_name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{ user_form.first_name.value|default:'' }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="id_last_name" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="id_last_name" name="last_name" value="{{ user_form.last_name.value|default:'' }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="id_email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="id_email" name="email" value="{{ user_form.email.value|default:'' }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="id_phone_number" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="id_phone_number" name="phone_number" value="{{ profile_form.phone_number.value|default:'' }}">
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Delivery Addresses -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Delivery Addresses</h5>
+                <a href="{% url 'address_create' %}" class="btn btn-sm btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus me-1"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    Add New Address
+                </a>
+            </div>
+            <div class="card-body">
+                {% if addresses %}
+                <div class="list-group">
+                    {% for address in addresses %}
+                    <div class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">
+                                    {{ address.address_line1 }}
+                                    {% if address.is_default %}
+                                    <span class="badge bg-primary ms-2">Default</span>
+                                    {% endif %}
+                                </h6>
+                                <p class="mb-1">{{ address.address_line2|default:"" }}</p>
+                                <small>{{ address.city }}, {{ address.state }} {{ address.postal_code }}</small>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <a href="{% url 'address_edit' address.id %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                {% if not address.is_default %}
+                                <a href="{% url 'set_default_address' address.id %}" class="btn btn-sm btn-outline-primary">Set Default</a>
+                                {% endif %}
+                                <a href="{% url 'address_delete' address.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <p class="mb-0">You have no saved addresses.</p>
+                    <a href="{% url 'address_create' %}" class="btn btn-primary mt-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus me-1"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Add Your First Address
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

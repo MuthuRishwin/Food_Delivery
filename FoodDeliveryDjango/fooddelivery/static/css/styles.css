@@ -1,0 +1,233 @@
+/* Global Styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: #333;
+}
+
+.text-primary {
+    color: #ff6b6b !important;
+}
+
+.bg-primary {
+    background-color: #ff6b6b !important;
+}
+
+.btn-primary {
+    background-color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #ff5252;
+    border-color: #ff5252;
+}
+
+.btn-outline-primary {
+    color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
+    background-color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+/* Navigation */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.restaurant-card:hover {
+    transform: translateY(-5px);
+}
+
+.cuisine-card {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.cuisine-card:hover {
+    background-color: #f8f9fa;
+}
+
+/* Home page */
+.feature-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+}
+
+/* Restaurant details */
+.menu-category {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    margin-top: 0.5rem;
+}
+
+.menu-item {
+    padding: 1rem;
+    border-top: none;
+    border-radius: 0;
+}
+
+/* Order tracking */
+.progress-tracker {
+    margin: 20px 0;
+}
+
+.step {
+    text-align: center;
+    width: 20%;
+    position: relative;
+    opacity: 0.5;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+.step-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 10px;
+    background-color: #e9ecef;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step.active .step-icon {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Forms */
+.form-control:focus {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 0.25rem rgba(255, 107, 107, 0.25);
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .restaurant-info {
+        flex-direction: column;
+    }
+    
+    .step {
+        font-size: 0.8rem;
+    }
+    
+    .step-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Order confirmation */
+.confirmation-icon {
+    font-size: 5rem;
+    color: #28a745;
+}
+
+/* Cart Badge */
+.position-relative .badge {
+    font-size: 0.6rem;
+}
+
+/* Helper classes */
+.rounded-lg {
+    border-radius: 0.5rem !important;
+}
+
+/* Restaurant cards */
+.restaurant-banner {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Animations */
+.progress-bar-animated {
+    animation: progress-bar-stripes 1s linear infinite;
+}
+
+/* Custom form styling */
+.form-control, .form-select {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+}
+
+/* Alert styling */
+.alert {
+    border-radius: 10px;
+}
+
+/* Badge styling */
+.badge {
+    padding: 0.5em 0.8em;
+    font-weight: 500;
+}
+
+/* Custom buttons */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.25rem;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+}
